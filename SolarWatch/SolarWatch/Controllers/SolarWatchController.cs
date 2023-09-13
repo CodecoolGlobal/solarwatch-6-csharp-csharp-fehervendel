@@ -62,4 +62,48 @@ public class SolarWatchController : ControllerBase
             return NotFound("Error getting weather data");
         }
     }
+
+    [HttpPut("UpdateCityData"), Authorize(Roles = "Admin")]
+    public async Task<ActionResult> UpdateCityByName(string cityName, [FromBody] CityUpdateModel cityUpdateModel)
+    {
+        var city = await _cityRepository.GetByName(cityName);
+        City cityToUpdate = city;
+    
+        try
+        {
+            if (cityToUpdate == null)
+            {
+                return NotFound("Error fining city, provide an existing city name");
+            }
+    
+            if (cityUpdateModel.CityName != null)
+            {
+                cityToUpdate.Name = cityUpdateModel.CityName;
+            }
+    
+            if (cityUpdateModel.State != null)
+            {
+                cityToUpdate.State = cityUpdateModel.State;
+            }
+    
+            if (cityUpdateModel.Lon != null)
+            {
+                cityToUpdate.Lon = (double)cityUpdateModel.Lon;
+            }
+    
+            if (cityUpdateModel.Lat != null)
+            {
+                cityToUpdate.Lat = (double)cityUpdateModel.Lat;
+            }
+
+            await _cityRepository.Update(cityToUpdate);
+
+            return Ok("City updated successfully");
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error updating city");
+            return StatusCode(500,"Internal server error");
+        }
+    }
 }
