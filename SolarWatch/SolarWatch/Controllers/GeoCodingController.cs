@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing.Matching;
 using SolarWatch.Model;
 using SolarWatch.Services;
@@ -20,7 +21,7 @@ public class GeoCodingController : ControllerBase
         _cityDataProvider = cityDataProvider;
     }
 
-    [HttpGet]
+    [HttpGet, Authorize(Roles="User")]
     public async Task<IActionResult> GetLatAndLon(string cityName)
     {
         try

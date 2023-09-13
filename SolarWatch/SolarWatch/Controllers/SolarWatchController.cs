@@ -31,8 +31,8 @@ public class SolarWatchController : ControllerBase
         _cityDataProvider = cityDataProvider;
     }
 
-    [HttpGet("GetByName"), Authorize(Roles="Admin")]
-    public async Task<ActionResult<WeatherForecast>> GetByNameAndDate([Required] string cityName)
+    [HttpGet("GetByName"), Authorize(Roles="Admin, User")]
+    public async Task<ActionResult<WeatherForecast>> GetByName([Required] string cityName)
     {
         var city = await _cityRepository.GetByName(cityName);
         
