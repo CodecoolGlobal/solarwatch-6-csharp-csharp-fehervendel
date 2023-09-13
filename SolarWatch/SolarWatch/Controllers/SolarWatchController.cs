@@ -73,7 +73,7 @@ public class SolarWatchController : ControllerBase
         {
             if (cityToUpdate == null)
             {
-                return NotFound("Error fining city, provide an existing city name");
+                return NotFound("Error finding city, provide an existing city name");
             }
     
             if (cityUpdateModel.CityName != null)
@@ -104,6 +104,27 @@ public class SolarWatchController : ControllerBase
         {
             _logger.LogError(ex, "Error updating city");
             return StatusCode(500,"Internal server error");
+        }
+    }
+
+    [HttpDelete("DeleteByName"), Authorize(Roles = "Admin")]
+    public async Task<ActionResult> DeleteByName(string cityName)
+    {
+        var city = await _cityRepository.GetByName(cityName);
+        if (city == null)
+        {
+            return NotFound("Error finding city, provide an existing city name");
+        }
+
+        try
+        {
+            await _cityRepository.Delete(city);
+            return Ok("City deleted successfully");
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error deleting city");
+            return StatusCode(500, "Internal server error");
         }
     }
 }
