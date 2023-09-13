@@ -7,9 +7,19 @@ using SolarWatch.Context;
 using SolarWatch.Services;
 using SolarWatch.Services.Authentication;
 using SolarWatch.Services.Repository;
+using Microsoft.Extensions.Configuration;
+using System;
+using System.IO;
 
 var builder = WebApplication.CreateBuilder(args);
-
+var configBuilder = new ConfigurationBuilder()
+    .SetBasePath(Directory.GetCurrentDirectory())
+    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+    .AddUserSecrets<Program>();
+IConfiguration configuration = configBuilder.Build();
+var validIssuer = configuration["JwtSettings:ValidIssuer"];
+var validAudience = configuration["JwtSettings:ValidAudience"];
+var issuerSigningKey = configuration["JwtSettings:IssuerSigningKey"];
 
 AddServices();
 ConfigureSwagger();
@@ -82,10 +92,10 @@ void AddAuthentication()
                 ValidateIssuer = true,
                 ValidateAudience = true,
                 ValidateLifetime = true,
-                ValidIssuer = "apiWithAuthBackend",
-                ValidAudience = "apiWithAuthBackend",
+                ValidIssuer = validIssuer,
+                ValidAudience = validAudience,
                 IssuerSigningKey = new SymmetricSecurityKey(
-                    Encoding.UTF8.GetBytes("!SomethingSecret!")
+                    Encoding.UTF8.GetBytes(issuerSigningKey)
                 ),
             };
         });
