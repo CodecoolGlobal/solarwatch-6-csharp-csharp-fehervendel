@@ -21,7 +21,7 @@ public class GeoCodingController : ControllerBase
         _cityDataProvider = cityDataProvider;
     }
 
-    [HttpGet, Authorize(Roles="User")]
+    [HttpGet]
     public async Task<IActionResult> GetLatAndLon(string cityName)
     {
         try

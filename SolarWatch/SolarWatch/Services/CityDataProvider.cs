@@ -23,6 +23,7 @@ public class CityDataProvider : ICityDataProvider
         _logger.LogInformation("Calling Geocoding API with: {url}", url);
         var result = await client.GetAsync(url);
         var resultAsString = await result.Content.ReadAsStringAsync();
+        Console.WriteLine(resultAsString);
 
         if (resultAsString == "[]")
         {
