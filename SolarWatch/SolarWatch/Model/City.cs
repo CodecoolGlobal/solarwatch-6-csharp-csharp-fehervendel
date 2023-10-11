@@ -11,9 +11,9 @@ public class City
     public int CityId { get; set; }
     
     //public int SunId { get; set; }
-    public string Name { get; set; }
-     public string Country { get; set; }
-     public string State { get; set; }
+    public string? Name { get; set; }
+     public string? Country { get; set; }
+     public string? State { get; set; }
      public double Lat { get; set; }
     public double Lon { get; set; }
     

@@ -31,8 +31,8 @@ public class SolarWatchController : ControllerBase
         _cityDataProvider = cityDataProvider;
     }
 
-    [HttpGet("GetByName"), Authorize(Roles="Admin, User")]
-    public async Task<ActionResult<WeatherForecast>> GetByName([Required] string cityName)
+    [HttpGet("GetByName")]//, Authorize(Roles="Admin, User")
+    public async Task<ActionResult<City>> GetByName([Required] string cityName)
     {
         var city = await _cityRepository.GetByName(cityName);
         
@@ -47,8 +47,8 @@ public class SolarWatchController : ControllerBase
               var resultCity = await _jsonProcessor.Process(sunSetResult);
               result.city = resultCity;
               
-              var addToSunRiseDataBase = _sunSetSunRiseRepository.Add(result); 
-              var addToCityDataBase = _cityRepository.Add(resultCity);
+              var addToSunRiseDataBase = await _sunSetSunRiseRepository.Add(result); 
+              var addToCityDataBase = await _cityRepository.Add(resultCity);
               
               return Ok(resultCity);
             }
