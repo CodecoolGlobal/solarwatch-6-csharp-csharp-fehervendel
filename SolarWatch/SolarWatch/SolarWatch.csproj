@@ -10,6 +10,8 @@
     <ItemGroup>
         <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.16" />
         <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.16" />
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="6.0.16" />
+        <PackageReference Include="Microsoft.AspNetCore.TestHost" Version="6.0.16" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.18">
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
           <PrivateAssets>all</PrivateAssets>
@@ -19,6 +21,7 @@
         <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.0-rc.1.23419.4" />
         <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="8.0.0-rc.1.23419.4" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+        <InternalsVisibleTo Include="SolarWatchTest" />
     </ItemGroup>
 
 </Project>

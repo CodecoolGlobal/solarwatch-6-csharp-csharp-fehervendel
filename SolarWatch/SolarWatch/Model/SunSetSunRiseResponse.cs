@@ -13,9 +13,9 @@ public class SunSetSunRiseResponse
     public int SunId { get; set; }
     
     public int CityId { get; set; }
-    public string Sunrise { get; set; }
+    public string? Sunrise { get; set; }
     
-    public string Sunset { get; set; }
+    public string? Sunset { get; set; }
     
     [JsonIgnore]
     public City city { get; set; }
