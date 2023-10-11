@@ -47,8 +47,8 @@ public class SolarWatchController : ControllerBase
               var resultCity = await _jsonProcessor.Process(sunSetResult);
               result.city = resultCity;
               
-              var addToSunRiseDataBase = await _sunSetSunRiseRepository.Add(result); 
-              var addToCityDataBase = await _cityRepository.Add(resultCity);
+              var addToSunRiseDataBase =  _sunSetSunRiseRepository.Add(result); 
+              var addToCityDataBase =  _cityRepository.Add(resultCity);
               
               return Ok(resultCity);
             }
