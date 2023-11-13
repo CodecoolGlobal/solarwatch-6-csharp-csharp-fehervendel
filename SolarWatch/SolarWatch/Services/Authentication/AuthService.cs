@@ -58,7 +58,7 @@ public class AuthService : IAuthService
             return InvalidPassword(email, managedUser.UserName);
         }
         var roles = await _userManager.GetRolesAsync(managedUser);
-        var role= roles.First();
+        var role= roles.FirstOrDefault();
         var adminAccessToken = _tokenService.CreateToken(managedUser, role);
         return new AuthResult(true, managedUser.Email, managedUser.UserName, adminAccessToken);
     }
