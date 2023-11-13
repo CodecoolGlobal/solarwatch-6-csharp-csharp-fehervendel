@@ -45,7 +45,9 @@ function App(props) {
       {data && data.sunRiseResponse && (<div>
     <div>City: {data.name}</div>
     <div>Country: {data.country}</div>
-    <div>State: {data.state}</div>
+    <div>
+      {data.state === null ? null : <div>State: {data.state}</div>}
+      </div>
     <div>Latitude: {data.lat}</div>
     <div>Longitude: {data.lon}</div>
     <div>Sunrise: {data.sunRiseResponse.sunrise}</div>
